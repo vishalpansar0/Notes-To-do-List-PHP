@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+:root{
+    --main-color : blueviolet;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    
+    
+    height: 60px;
+    font-family: 'Roboto', sans-serif;
+    background-color: blueviolet;
+}
+.navbar h4{
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.main-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 1rem;
+}
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 5px;
+    
+}
+
+.card-heading{
+    color: var(--main-color);
+    text-align: center;
+}
+form input{
+    width: 200px;
+    border: 1px solid black;
+    padding: .5rem;
+    border-radius: 5px ;
+    margin-top: 5px;
+}
+.submit-btn{
+    padding: 8px 20px 8px 20px;
+    border: 1px solid black;
+    border-radius: 5px ;
+    
+}
+
+form a{
+    text-decoration: none;
+    color:var(--main-color)
+}
+.submit-btn:active{
+    background-color: var(--main-color);
+}
