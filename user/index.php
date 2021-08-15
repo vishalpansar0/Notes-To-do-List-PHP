@@ -16,12 +16,21 @@ $msg="";
       $text = $_POST['textarea'];
       $type = "todo";
       $title="";
+      if(empty($text)){
+           $msg = "Text is empty";
+      }else{
       $sq = "INSERT INTO $username(type,title,text) VALUES('$type','$title','$text')";
       if($con->query($sq) === true){
-          
+         // $msg = "Added successfully";
       }
-      
+    }
 
+  }
+
+  if(isset($_POST['subm'])){
+      $del_id = $_POST['subm'];
+      $s = "DELETE FROM $username WHERE id='$del_id'";
+      $con->query($s);
   }
 
 ?>
@@ -57,7 +66,7 @@ $msg="";
                    $data =  $con->query($sql);
                    if($data->num_rows > 0){
                     while($row = $data->fetch_assoc()) {
-                        // echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+                        
                         $id = $row['id'];
                         $text = $row['text']; 
                       
@@ -68,7 +77,7 @@ $msg="";
                    <tr class="row">
                        <td class="col-10"><?php echo $text; ?></td>
                        <td class="col-2"><form method="POST">
-                       <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                           
+                       <button type="submit" class="btn btn-primary" name="subm" value="<?php echo $id; ?>"><i class="fas fa-check"></i></button>                           
                             </form></td>
                        
                    </tr>
@@ -90,11 +99,13 @@ $msg="";
 
     <section class="main-section">
         <div class="notes">
+        <span style="color:red"><?php echo $msg; ?></span>
             <h2>Add new</h2>
             <form method="POST">
                 <textarea id="textarea" type="textarea" name = "textarea"></textarea>
                 <button type="submit" class="btn btn-success" name="submit">Add </button> 
             </form>
+            
             
            
         </div>
