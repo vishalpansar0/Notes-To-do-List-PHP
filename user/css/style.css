@@ -13,12 +13,21 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
+    
     background-color: var(--main-color);
 }
 .navbar ul li{
     list-style: none;
     display: inline;
+    
     margin-right: 10px;
+    
+}
+.notes{
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
+    padding: 1.5rem;
+    margin: 2rem;
+    width: 800px;
 }
 .main-section{
     
@@ -27,17 +36,8 @@
     justify-content: center;
     align-items: center;
 }
-.main-section table{
-    padding: 1rem;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    overflow: auto;
-    
-}
-.table-name{
+#textarea{
+    width: 100%;
+    min-height: 100px;
     padding: .5rem;
-    
-    width: 300px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
-    
 }

@@ -1,3 +1,28 @@
+<?php require_once("php/connection.php"); ?>
+<?php require_once("php/session.php"); ?>
+<?php require_once("php/functions.php"); ?>
+<?php
+ $errorMsg=null;
+ if(isset($_POST['submit'])){
+     $username = $_POST['username'];
+     $password = $_POST['password'];
+     if(empty($username) || empty($password)){
+        $errorMsg = "Username or password is empty";
+    }
+    else{
+        $isfound = login($username,$password);
+        if($isfound){
+            $_SESSION["userN"] = $username;
+            Redirect_to("user/");
+        }
+        else{
+            $errorMsg = "Account doesn't exists,<br>Sign Up please";
+        }
+
+    }
+ }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +45,13 @@
           <input type="text" id="username" name="username" placeholder="Username"><br><br>
           <label for="lname">Password</label><br>
           <input type="password" id="password" name="password" placeholder="Password"><br><br>
-          <button type="submit" name ="submit" class="submit-btn">Log In</button>
-          <a href="signup.php"> Or sign up here</a>
+          <button type="submit" name ="submit" class="submit-btn" style="cursor: pointer;">Log In</button><br><br>
+          <a href="signup.php">Not have an account?<br>Sign Up here!</a>
         </form>
+
+        <br><span style="color:red"><?php
+              echo $errorMsg;
+          ?></span>
         </div>
 
         
