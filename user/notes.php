@@ -2,27 +2,17 @@
 <?php require_once("../php/functions.php");  ?>
 <?php require_once("../php/session.php");   ?>
 <?php
-$msg="";
   $isLoggedin = confirmLogin();
   if($isLoggedin){
       $username = $_SESSION['userN'];
 
+      
 
   }
   else{
     Redirect_to("logout.php");
   }
-  if(isset($_POST['submit'])){
-      $text = $_POST['textarea'];
-      $type = "todo";
-      $title="";
-      $sq = "INSERT INTO $username(type,title,text) VALUES('$type','$title','$text')";
-      if($con->query($sq) === true){
-          
-      }
-      
 
-  }
 
 ?>
 
@@ -49,38 +39,39 @@ $msg="";
     </nav>
     <section class="main-section">
         <div class="notes">
-            <h2>My To Do's List</h2>
+            <h2>My Notes</h2>
             <table class="table table-striped table-hover">
-            <tbody class="tbody">
-                <?php
-                   $sql = "SELECT * FROM $username WHERE type='todo' ORDER BY id DESC";
-                   $data =  $con->query($sql);
-                   if($data->num_rows > 0){
-                    while($row = $data->fetch_assoc()) {
-                        // echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-                        $id = $row['id'];
-                        $text = $row['text']; 
-                      
-                ?>
-
-
                
+               <tbody class="tbody">
                    <tr class="row">
-                       <td class="col-10"><?php echo $text; ?></td>
+                       <td class="col-10">Vishal</td>
                        <td class="col-2"><form method="POST">
                        <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                           
                             </form></td>
                        
                    </tr>
-                <?php
-                    }
-                    
-                    }else{ ?>
-                    <tr class="row">
-                       <td class="col-12" style="color:red;">No To Do's yet! Please Add new! </td>
-                      
+                   <tr  class="row">
+                       <td class="col-10">Vishal</td>
+                       <td class="col-2"><form method="POST">
+                            <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>
+                                                       
+                            </form></td>
+                       
                    </tr>
-                    <?php }?>
+                   <tr class="row">
+                       <td class="col-10">Vishal</td>
+                       <td  class="col-2"><form method="POST">
+                       <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                           
+                            </form></td>
+                       
+                   </tr>
+                   <tr class="row">
+                       <td class="col-10">Vishal</td>
+                       <td class="col-2"><form method="POST">
+                       <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                         
+                            </form></td>
+                       
+                   </tr>
                </tbody>
             </table>
             
@@ -90,13 +81,13 @@ $msg="";
 
     <section class="main-section">
         <div class="notes">
-            <h2>Add new</h2>
+            <h2>Add new note</h2>
             <form method="POST">
-                <textarea id="textarea" type="textarea" name = "textarea"></textarea>
-                <button type="submit" class="btn btn-success" name="submit">Add </button> 
+                <textarea id="textarea" type="textarea"></textarea>
+                <button type="submit" class="btn btn-success">Add </button> 
             </form>
             
-           
+            
         </div>
 
     </section>

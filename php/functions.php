@@ -28,4 +28,19 @@
          return false;
      }
  }
+
+function confirmLogin(){
+  if(isset($_SESSION['userN'])){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+function createUser($username){
+  Global $con;
+  $sql = "CREATE TABLE $username(id int(2) auto_increment primary key,type char(10),title varchar(30),text LONGTEXT)";
+  $con->query($sql); 
+}
 ?>

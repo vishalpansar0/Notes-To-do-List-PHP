@@ -2,6 +2,13 @@
 <?php require_once("php/session.php"); ?>
 <?php require_once("php/functions.php"); ?>
 <?php
+
+$isLoggedin = confirmLogin();
+if($isLoggedin){
+    Redirect_to("user/");
+}
+
+
  $errorMsg=null;
    if(isset($_POST['submit'])){
        $username = $_POST['username'];
@@ -18,7 +25,12 @@
 
            else{
                $sql = "INSERT INTO users (username,password) VALUES('$username','$password')";
-               $con->query($sql);
+               
+               if ($con->query($sql) === TRUE) {
+
+                createUser($username);
+                  
+              }
                $_SESSION["userN"] = $username;
                Redirect_to("user/");
            }

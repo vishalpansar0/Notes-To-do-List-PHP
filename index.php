@@ -2,6 +2,14 @@
 <?php require_once("php/session.php"); ?>
 <?php require_once("php/functions.php"); ?>
 <?php
+
+
+$isLoggedin = confirmLogin();
+if($isLoggedin){
+    Redirect_to("user/");
+}
+
+
  $errorMsg=null;
  if(isset($_POST['submit'])){
      $username = $_POST['username'];
@@ -21,6 +29,7 @@
 
     }
  }
+
 ?>
 
 <!DOCTYPE html>
