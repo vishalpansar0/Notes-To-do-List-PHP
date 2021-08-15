@@ -17,7 +17,7 @@ $msg="";
       $type = "todo";
       $title="";
       if(empty($text)){
-           $msg = "Text is empty";
+           $msg = "Text can't be empty";
       }else{
       $sq = "INSERT INTO $username(type,title,text) VALUES('$type','$title','$text')";
       if($con->query($sq) === true){
@@ -49,6 +49,7 @@ $msg="";
 <body>
     <nav class="navbar">
         <ul>
+            <li><a href="notes.php" style = "text-decoration:none;color:white;"><button class = "btn btn-primary"><strong>My Notes</strong></button></a></li>
             <li><i class="fa fa-user"></i> <?php echo $username; ?></li>
             <li> <a style="text-decoration:none;color:black;" href="logout.php">
         	    	Logout
@@ -60,7 +61,7 @@ $msg="";
         <div class="notes">
             <h2>My To Do's List</h2>
             <table class="table table-striped table-hover">
-            <tbody class="tbody">
+            <tbody class="tbody" >
                 <?php
                    $sql = "SELECT * FROM $username WHERE type='todo' ORDER BY id DESC";
                    $data =  $con->query($sql);
@@ -77,7 +78,7 @@ $msg="";
                    <tr class="row">
                        <td class="col-10"><?php echo $text; ?></td>
                        <td class="col-2"><form method="POST">
-                       <button type="submit" class="btn btn-primary" name="subm" value="<?php echo $id; ?>"><i class="fas fa-check"></i></button>                           
+                       <button type="submit" class="btn btn-danger" name="subm" value="<?php echo $id; ?>"><i class="fas fa-check"></i></button>                           
                             </form></td>
                        
                    </tr>

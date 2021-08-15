@@ -2,16 +2,18 @@
 <?php require_once("../php/functions.php");  ?>
 <?php require_once("../php/session.php");   ?>
 <?php
+$text=null;
+$title_view=null;
   $isLoggedin = confirmLogin();
   if($isLoggedin){
       $username = $_SESSION['userN'];
-
-      
 
   }
   else{
     Redirect_to("logout.php");
   }
+
+  
 
 
 ?>
@@ -30,6 +32,7 @@
 <body>
     <nav class="navbar">
         <ul>
+            <li><a href="index.php" style = "text-decoration:none;color:white;"><button class = "btn btn-primary"><strong>My To Do's</strong></button></a></li>
             <li><i class="fa fa-user"></i> <?php echo $username; ?></li>
             <li> <a style="text-decoration:none;color:black;" href="logout.php">
         	    	Logout
@@ -37,41 +40,76 @@
           	</a></li>
         </ul>
     </nav>
+
+     <span><section style="display: flex;
+     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;">
+        <?php
+           if(isset($_POST['view'])){
+                $text_id = $_POST['view'];
+                $sql_view = "SELECT text,title FROM $username where id='$text_id'";
+                $data_text = $con->query($sql_view);
+                $row_text = $data_text->fetch_assoc();
+                $text = $row_text['text'];
+                $title_view = $row_text['title'];
+           }
+        ?><span><div class="text_view" style="box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
+        padding: 1rem;
+        margin: 2rem;
+        width: 800px;">
+            <h3><?php echo $title_view; ?></h3>
+            <p><?php echo $text; ?></p>
+        </div></span>
+        
+
+    </section></span>
+
     <section class="main-section">
         <div class="notes">
-            <h2>My Notes</h2>
+            <div class="row">
+            <h2 class="col-4">My Notes</h2>
+            <h2 class="offset-5 col-3"><a href="addnote.php" style = "text-decoration:none;color:white;"><button class = "btn btn-success"><strong>Add New Note</strong></button></a></h2>
+            </div>
             <table class="table table-striped table-hover">
                
                <tbody class="tbody">
+               <?php
+                   $sql = "SELECT * FROM $username WHERE type='note'";
+                   $data =  $con->query($sql);
+                   if($data->num_rows > 0){
+                    while($row = $data->fetch_assoc()) {
+                        $title = $row['title'];
+                        $id = $row['id'];
+                        
+                      
+                ?>
+
                    <tr class="row">
-                       <td class="col-10">Vishal</td>
+                       <td class="col-8" style="font-weight:600;font-size:20px;"><?php echo $title; ?></td>
                        <td class="col-2"><form method="POST">
-                       <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                           
+                       <button type="submit" class="btn btn-primary" name="view" value="<?php echo $id; ?>"><i class="fas fa-eye"></i> View</button>
                             </form></td>
+                            <td class="col-1"><form method="POST">
+                       <button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                            </form></td>
+                       <td class="col-1"><form method="POST">
+                       <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </form></td>  
+                                                      
                        
                    </tr>
-                   <tr  class="row">
-                       <td class="col-10">Vishal</td>
-                       <td class="col-2"><form method="POST">
-                            <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>
-                                                       
-                            </form></td>
-                       
+                   <?php
+                    }
+                    
+                    }else{ ?>
+                    <tr class="row">
+                       <td class="col-12" style="color:red;">No Notes yet! Please Add new! </td>
+                      
                    </tr>
-                   <tr class="row">
-                       <td class="col-10">Vishal</td>
-                       <td  class="col-2"><form method="POST">
-                       <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                           
-                            </form></td>
+                    <?php }?>
+                   
                        
-                   </tr>
-                   <tr class="row">
-                       <td class="col-10">Vishal</td>
-                       <td class="col-2"><form method="POST">
-                       <button type="submit" class="btn btn-primary"><i class="far fa-check-square"></i></button>                         
-                            </form></td>
-                       
-                   </tr>
                </tbody>
             </table>
             
@@ -79,7 +117,7 @@
 
     </section>
 
-    <section class="main-section">
+    <!-- <section class="main-section">
         <div class="notes">
             <h2>Add new note</h2>
             <form method="POST">
@@ -90,7 +128,7 @@
             
         </div>
 
-    </section>
+    </section> -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
