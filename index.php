@@ -12,8 +12,8 @@ if($isLoggedin){
 
  $errorMsg=null;
  if(isset($_POST['submit'])){
-     $username = $_POST['username'];
-     $password = $_POST['password'];
+     $username = mysqli_real_escape_string($con,$_POST['username']);
+     $password = mysqli_real_escape_string($con,$_POST['password']);
      if(empty($username) || empty($password)){
         $errorMsg = "Username or password is empty";
     }

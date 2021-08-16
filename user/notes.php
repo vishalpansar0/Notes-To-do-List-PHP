@@ -4,6 +4,7 @@
 <?php
 $text=null;
 $title_view=null;
+$close_btn=null;
   $isLoggedin = confirmLogin();
   if($isLoggedin){
       $username = $_SESSION['userN'];
@@ -13,6 +14,11 @@ $title_view=null;
     Redirect_to("logout.php");
   }
 
+  if(isset($_POST['delete_btn'])){
+    $del_id = $_POST['delete_btn'];
+    $s = "DELETE FROM $username WHERE id='$del_id'";
+    $con->query($s);
+}
   
 
 
@@ -24,7 +30,10 @@ $title_view=null;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+      
+    My Notes</title>
+    <link rel="icon" href="../icon.png" type="image/x-icon">  
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/58106dd2b0.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -53,13 +62,27 @@ $title_view=null;
                 $row_text = $data_text->fetch_assoc();
                 $text = $row_text['text'];
                 $title_view = $row_text['title'];
+                $close_btn="Close";
            }
         ?><span><div class="text_view" style="box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
-        padding: 1rem;
+        
         margin: 2rem;
-        width: 800px;">
-            <h3><?php echo $title_view; ?></h3>
-            <p><?php echo $text; ?></p>
+        width: 800px;"><form method="POST">
+            <button type="submit" name="closeView" style="float:right; margin:10px;border:none;position:relative;"><?php echo $close_btn; ?></button>
+        </form>
+
+
+            <?php
+             if(isset($_POST['closeView'])){
+                 $title_view=null;
+                 $text=null;
+                 $close_btn=null;
+             }
+            ?>
+
+
+            <h3 style="margin:15px;"><?php echo $title_view; ?></h3>
+            <p style="margin:15px 15px 0px 15px;"><?php echo $text; ?></p>
         </div></span>
         
 
@@ -91,10 +114,10 @@ $title_view=null;
                        <button type="submit" class="btn btn-primary" name="view" value="<?php echo $id; ?>"><i class="fas fa-eye"></i> View</button>
                             </form></td>
                             <td class="col-1"><form method="POST">
-                       <button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                       <a href="editnote.php?id=<?php echo $id; ?>"><i class="fas fa-edit btn btn-warning"></i></a>
                             </form></td>
                        <td class="col-1"><form method="POST">
-                       <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                       <button type="submit" class="btn btn-danger" name="delete_btn" value="<?php echo $id; ?>"><i class="fas fa-trash"></i></button>
                             </form></td>  
                                                       
                        

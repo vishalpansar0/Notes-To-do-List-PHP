@@ -2,6 +2,9 @@
 <?php require_once("../php/functions.php");  ?>
 <?php require_once("../php/session.php");   ?>
 <?php
+
+  $r_id=$_GET['id'];
+
 $msg="";
   $isLoggedin = confirmLogin();
   if($isLoggedin){
@@ -12,14 +15,20 @@ $msg="";
     Redirect_to("logout.php");
   }
 
+  $get_data = "SELECT * FROM $username WHERE id='$r_id'";
+  $data = $con->query($get_data);
+  $row = $data->fetch_assoc();
+  $got_title = $row['title'];
+  $got_text = $row['text'];
+
   if(isset($_POST['submit'])){
-      $title = mysqli_real_escape_string($con,$_POST['title']);
+      $title = $got_title;
       $text = mysqli_real_escape_string($con,$_POST['text']);
       $type = "note";
       if(empty($text) || empty($title)){
         $msg = "Title or Text can't be empty";
       }else{
-      $sql = "INSERT INTO $username(type,title,text) VALUES('$type','$title','$text')";
+      $sql = "UPDATE $username SET text='$text'  WHERE id='$r_id'";
       if($con->query($sql) === true){
          Redirect_to("notes.php");
       }
@@ -57,11 +66,10 @@ $msg="";
     <section class="main-section">
         <div class="notes">
         <span style="color:red"><?php echo $msg; ?></span>
-        <h2>Add New Note Here</h2>
+        <h2>Edit :  <?php echo $got_title;?></h2>
             <div class="row">
                 <form method="POST">
-            <input class="col-12" type="text" name="title" placeholder="Add Title here" style="padding:.5rem;"></input>
-            <textarea class="col-12 mt-2" name="text" style="min-height:26rem;padding:1rem;" placeholder="Add Note here"></textarea>
+            <textarea class="col-12 mt-2" name="text" style="min-height:26rem;padding:1rem;" placeholder="Add Note here"><?php echo $got_text; ?></textarea>
             <button type="submit" name="submit" class="col-12 btn btn-success mt-2">Add Note</button>    
 </form>
         </div>

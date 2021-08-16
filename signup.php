@@ -11,8 +11,8 @@ if($isLoggedin){
 
  $errorMsg=null;
    if(isset($_POST['submit'])){
-       $username = $_POST['username'];
-       $password = $_POST['password'];
+       $username = mysqli_real_escape_string($con,$_POST['username']);
+       $password = mysqli_real_escape_string($con,$_POST['password']);
 
        if(empty($username) || empty($password)){
            $errorMsg = "Username or password is empty";
@@ -60,7 +60,7 @@ if($isLoggedin){
           <label for="username">Username</label><br>
           <input type="text" id="username" name="username" placeholder="Username"><br><br>
           <label for="lname">Password</label><br>
-          <input type="text" id="password" name="password" placeholder="Password"><br><br>
+          <input type="password" id="password" name="password" placeholder="Password"><br><br>
           <button type="submit" name ="submit" class="submit-btn">Sign Up</button><br><br><a href="index.php">Already have an account?<br> Log In here!</a>
         </form>
         <br><span style="color:red"><?php

@@ -13,7 +13,7 @@ $msg="";
     Redirect_to("logout.php");
   }
   if(isset($_POST['submit'])){
-      $text = $_POST['textarea'];
+      $text = mysqli_real_escape_string($con,$_POST['textarea']);
       $type = "todo";
       $title="";
       if(empty($text)){
