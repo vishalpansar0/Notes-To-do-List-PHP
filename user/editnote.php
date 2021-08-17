@@ -47,7 +47,8 @@ $msg="";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Note</title>
+    <link rel="icon" href="../icon.png" type="image/x-icon">  
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/58106dd2b0.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -66,11 +67,11 @@ $msg="";
     <section class="main-section">
         <div class="notes">
         <span style="color:red"><?php echo $msg; ?></span>
-        <h2>Edit :  <?php echo $got_title;?></h2>
+        <h2><span style="color:red">Edit :</span> <?php echo $got_title;?></h2>
             <div class="row">
                 <form method="POST">
             <textarea class="col-12 mt-2" name="text" style="min-height:26rem;padding:1rem;" placeholder="Add Note here"><?php echo $got_text; ?></textarea>
-            <button type="submit" name="submit" class="col-12 btn btn-success mt-2">Add Note</button>    
+            <button type="submit" name="submit" class="col-12 btn btn-success mt-2">Edit Note</button>    
 </form>
         </div>
         </div>
